@@ -18,10 +18,10 @@ def preload(parser: ArgumentParser):
         help='Path to directory with DeepDanbooru project(s).',
         default=default_ddp_path
     )
-    
     parser.add_argument(
         '--onnxtagger-path',
         type=str,
         help='Path to directory with DeepDanbooru project(s).',
         default=default_onnx_path
     )
+

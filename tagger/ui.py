@@ -33,7 +33,6 @@ def on_interrogate(
     batch_output_dir: str,
     batch_output_filename_format: str,
     batch_output_action_on_conflict: str,
-    batch_remove_duplicated_tag: bool,
     batch_output_save_json: bool,
 
     interrogator: str,
@@ -90,13 +89,13 @@ def on_interrogate(
     if batch_input_glob != '':
         # if there is no glob pattern, insert it automatically
         if not batch_input_glob.endswith('*'):
-            if not batch_input_glob.endswith(os.sep):
-                batch_input_glob += os.sep
+            if not batch_input_glob.endswith('/'):
+                batch_input_glob += '/'
             batch_input_glob += '*'
 
         # get root directory of input glob pattern
         base_dir = batch_input_glob.replace('?', '*')
-        base_dir = base_dir.split(os.sep + '*').pop(0)
+        base_dir = base_dir.split('/*').pop(0)
 
         # check the input directory path
         if not os.path.isdir(base_dir):
@@ -154,7 +153,7 @@ def on_interrogate(
             output = []
 
             if output_path.is_file():
-                output.append(output_path.read_text(errors='ignore').strip())
+                output.append(output_path.read_text())
 
                 if batch_output_action_on_conflict == 'ignore':
                     print(f'skipping {path}')
